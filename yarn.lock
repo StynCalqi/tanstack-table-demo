@@ -2161,6 +2161,11 @@ parent-module@^1.0.0:
   dependencies:
     callsites "^3.0.0"
 
+paste-from-excel@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/paste-from-excel/-/paste-from-excel-1.0.5.tgz#02b4c397cc85a6c160a32cd04c861852147ac0c1"
+  integrity sha512-YeuyEgLjbscy4Xy5DimXHrEAg2Rbr6vBEm4wnKcSpPD0G/VIk6XO/v4P/I4PvIXe+gi1miXGfcNqQibb1NG0Pw==
+
 path-exists@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/path-exists/-/path-exists-4.0.0.tgz#513bdbe2d3b95d7762e8c1137efa195c6c61b5b3"
