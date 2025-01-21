@@ -1,8 +1,8 @@
 import { useSortable } from "@dnd-kit/sortable";
 
-const RowDragHandleCell = ({ rowId }) => {
+const RowDragHandleCell = ({ row }) => {
   const { attributes, listeners } = useSortable({
-    id: rowId,
+    id: row.original.id,
   });
   return (
     // Alternatively, you could set these attributes on the rows themselves
