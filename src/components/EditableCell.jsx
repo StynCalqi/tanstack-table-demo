@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import parse from "paste-from-excel";
 
@@ -20,6 +19,7 @@ const EditableCell = ({ getValue }) => {
       type="text"
       onChange={(e) => setValue(e.target.value)}
       onPaste={(e) => onPaste(e)}
+      className="w-full p-1"
     />
   );
 };

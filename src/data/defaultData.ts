@@ -8,6 +8,7 @@ const defaultData = [
     factor: "1,00",
     l: "0,00  m",
     total: "0,00 m",
+    type: "",
   },
   {
     id: 2,
@@ -18,6 +19,7 @@ const defaultData = [
     factor: "1,00",
     l: "0,00  m",
     total: "0,00 m",
+    type: "",
   },
   {
     id: 3,
@@ -28,6 +30,7 @@ const defaultData = [
     factor: "1,00",
     l: "0,00  m",
     total: "0,00 m",
+    type: "",
   },
 ];
 

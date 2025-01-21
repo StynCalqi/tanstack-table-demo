@@ -50,7 +50,7 @@ const DraggableTable = ({ data, setData }) => {
           checked: row.getIsSelected(),
           disabled: !row.getCanSelect(),
           indeterminate: row.getIsSomeSelected(),
-          onChange: row.getToggleSelectedHandler(),
+          onChange: row.getToggleSelectedHandler(), // Doesn't allow customization (select children if a parent is active)
         }}
       />
     ),
@@ -62,10 +62,12 @@ const DraggableTable = ({ data, setData }) => {
     columnHelper.accessor((row) => row.draggable, {
       id: "draggable",
       header: "Drag",
+      size: 50,
     }),
     columnHelper.accessor((row) => row.number, {
       id: "number",
       cell: (info) => info.renderValue(),
+      size: 70,
     }),
     columnHelper.accessor((row) => row.description, {
       id: "description",
@@ -76,6 +78,7 @@ const DraggableTable = ({ data, setData }) => {
         />
       ),
       meta: { label: "Description" },
+      size: 500,
     }),
     columnHelper.accessor((row) => row.quantity, {
       id: "quantity",
@@ -85,6 +88,7 @@ const DraggableTable = ({ data, setData }) => {
           onChange={(newText) => updateColumnHeader(column.id, newText)}
         />
       ),
+      size: 100,
     }),
     columnHelper.accessor((row) => row.factor, {
       id: "factor",
@@ -94,6 +98,7 @@ const DraggableTable = ({ data, setData }) => {
           onChange={(newText) => updateColumnHeader(column.id, newText)}
         />
       ),
+      size: 100,
     }),
     columnHelper.accessor((row) => row.l, {
       id: "l",
@@ -103,6 +108,7 @@ const DraggableTable = ({ data, setData }) => {
           onChange={(newText) => updateColumnHeader(column.id, newText)}
         />
       ),
+      size: 100,
     }),
     columnHelper.accessor((row) => row.total, {
       id: "total",
@@ -112,6 +118,7 @@ const DraggableTable = ({ data, setData }) => {
           onChange={(newText) => updateColumnHeader(column.id, newText)}
         />
       ),
+      size: 100,
     }),
   ]);
 
@@ -194,6 +201,20 @@ const DraggableTable = ({ data, setData }) => {
     .getRowModel()
     .rows.filter((item) => rowSelection[item.id]);
 
+  const handleIndent = (rowId) => {
+    setData((prevData) => {
+      return prevData.map((item) => {
+        if (item.id === rowId - 1 && item.type !== "indent") {
+          return { ...item, type: "parent" };
+        }
+        if (item.id === rowId) {
+          return { ...item, type: "indent" };
+        }
+        return item;
+      });
+    });
+  };
+
   return (
     <DndContext
       collisionDetection={closestCenter}
@@ -222,7 +243,11 @@ const DraggableTable = ({ data, setData }) => {
           </thead>
           <tbody>
             {table.getRowModel().rows.map((row) => (
-              <DraggableRow key={row.id} row={row} />
+              <DraggableRow
+                key={row.id}
+                row={row}
+                handleIndent={handleIndent}
+              />
             ))}
           </tbody>
         </table>

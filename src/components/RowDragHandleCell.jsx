@@ -6,7 +6,7 @@ const RowDragHandleCell = ({ row }) => {
   });
   return (
     // Alternatively, you could set these attributes on the rows themselves
-    <button {...attributes} {...listeners}>
+    <button {...attributes} {...listeners} className="bg-white py-1 px-2">
       🟰
     </button>
   );
