@@ -2,13 +2,9 @@
 import { useState, useEffect } from "react";
 import parse from "paste-from-excel";
 
-const EditableCell = ({ getValue, row, column, table }) => {
+const EditableCell = ({ getValue }) => {
   const initialValue = getValue();
   const [value, setValue] = useState(initialValue);
-
-  const onBlur = () => {
-    table.options.meta.updateData(row.index, column.id, value);
-  };
 
   const onPaste = (e) => {
     return parse(e);
@@ -21,8 +17,8 @@ const EditableCell = ({ getValue, row, column, table }) => {
   return (
     <input
       value={value}
+      type="text"
       onChange={(e) => setValue(e.target.value)}
-      onBlur={onBlur}
       onPaste={(e) => onPaste(e)}
     />
   );
