@@ -231,7 +231,10 @@ const DraggableTable = ({ data, selectedDecimal, setData }) => {
         <table>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
+              <tr
+                key={headerGroup.id}
+                className="sticky top-1 bg-blue-100 z-10"
+              >
                 {headerGroup.headers.map((header) => (
                   <th key={header.id}>
                     {header.isPlaceholder
