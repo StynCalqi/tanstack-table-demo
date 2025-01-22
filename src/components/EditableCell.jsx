@@ -1,17 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import parse from "paste-from-excel";
 
-const EditableCell = ({ getValue }) => {
+const EditableCell = ({ selectedDecimal, getValue }) => {
   const initialValue = getValue();
-  const [value, setValue] = useState(initialValue);
+
+  const formatValue = useCallback(
+    (value) => {
+      return value === ""
+        ? value
+        : selectedDecimal === "1"
+        ? `${value}.0`
+        : `${value}.00`;
+    },
+    [selectedDecimal]
+  );
+  const [value, setValue] = useState(formatValue(initialValue));
 
   const onPaste = (e) => {
     return parse(e);
   };
 
   useEffect(() => {
-    setValue(initialValue);
-  }, [initialValue]);
+    setValue(formatValue(initialValue));
+  }, [initialValue, selectedDecimal, formatValue]);
 
   return (
     <input

@@ -25,8 +25,9 @@ import defaultColumn from "./DefaultColumn";
 import DraggableRow from "./DraggableRow";
 import EditableHeader from "./EditableHeader";
 import Checkbox from "./Checkbox";
+import EditableCell from "./EditableCell";
 
-const DraggableTable = ({ data, setData }) => {
+const DraggableTable = ({ data, selectedDecimal, setData }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [rowSelection, setRowSelection] = useState({});
   const dataIds = useMemo(() => data?.map(({ id }) => id), [data]);
@@ -50,7 +51,7 @@ const DraggableTable = ({ data, setData }) => {
           checked: row.getIsSelected(),
           disabled: !row.getCanSelect(),
           indeterminate: row.getIsSomeSelected(),
-          onChange: row.getToggleSelectedHandler(), // Doesn't allow customization (select children if a parent is active)
+          onChange: row.getToggleSelectedHandler(), // Doesn't allow customization (select children checkboxes if a parent is active)
         }}
       />
     ),
@@ -87,6 +88,9 @@ const DraggableTable = ({ data, setData }) => {
           text={column.id}
           onChange={(newText) => updateColumnHeader(column.id, newText)}
         />
+      ),
+      cell: (props) => (
+        <EditableCell selectedDecimal={selectedDecimal} {...props} />
       ),
       size: 100,
     }),

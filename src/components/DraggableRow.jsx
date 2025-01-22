@@ -17,8 +17,6 @@ const DraggableRow = ({ row, handleIndent }) => {
     position: "relative",
   };
 
-  console.log(row);
-
   return (
     // connect row ref to dnd-kit, apply important styles
     <tr ref={setNodeRef} style={style}>
@@ -65,7 +63,7 @@ const DraggableRow = ({ row, handleIndent }) => {
             </div>
           )}
 
-          <div className="flex flex-row">
+          <div>
             {cell.column.id === "description" &&
               row.original.type === "indent" && (
                 <svg
