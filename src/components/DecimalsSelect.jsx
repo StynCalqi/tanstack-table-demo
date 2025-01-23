@@ -1,5 +1,5 @@
 const DecimalsSelect = ({ selectedDecimal, setSelectedDecimal }) => (
-  <article className="flex flex-col items-center">
+  <article className="flex flex-col items-center mb-4">
     <label>Choose decimals</label>
     <select
       value={selectedDecimal}

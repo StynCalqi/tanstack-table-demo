@@ -30,6 +30,9 @@ import EditableCell from "./EditableCell";
 const DraggableTable = ({ data, selectedDecimal, setData }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [rowSelection, setRowSelection] = useState({});
+  const [columnVisibility, setColumnVisibility] = useState({
+    length2: false,
+  });
   const dataIds = useMemo(() => data?.map(({ id }) => id), [data]);
 
   const columnHelper = createColumnHelper();
@@ -104,8 +107,18 @@ const DraggableTable = ({ data, selectedDecimal, setData }) => {
       ),
       size: 100,
     }),
-    columnHelper.accessor((row) => row.l, {
-      id: "l",
+    columnHelper.accessor((row) => row.length1, {
+      id: "length1",
+      header: ({ column }) => (
+        <EditableHeader
+          text={column.id}
+          onChange={(newText) => updateColumnHeader(column.id, newText)}
+        />
+      ),
+      size: 100,
+    }),
+    columnHelper.accessor((row) => row.length2, {
+      id: "length2",
       header: ({ column }) => (
         <EditableHeader
           text={column.id}
@@ -189,7 +202,7 @@ const DraggableTable = ({ data, selectedDecimal, setData }) => {
     data,
     columns,
     getRowId: (row) => row.id,
-    state: { rowSelection },
+    state: { rowSelection, columnVisibility },
     onRowSelectionChange: setRowSelection,
     defaultColumn,
     getCoreRowModel: getCoreRowModel(),
@@ -219,6 +232,12 @@ const DraggableTable = ({ data, selectedDecimal, setData }) => {
     });
   };
 
+  const addLengthColumn = () => {
+    setColumnVisibility((prev) => {
+      return { ...prev, length2: true };
+    });
+  };
+
   return (
     <DndContext
       collisionDetection={closestCenter}
@@ -228,6 +247,12 @@ const DraggableTable = ({ data, selectedDecimal, setData }) => {
       sensors={sensors}
     >
       <SortableContext items={dataIds} strategy={verticalListSortingStrategy}>
+        <button
+          className="bg-blue-500 text-white mb-4"
+          onClick={addLengthColumn}
+        >
+          Add length column
+        </button>
         <table>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
